@@ -58,10 +58,22 @@ github "stdlib",      "4.7.0", :repo => "puppetlabs/puppetlabs-stdlib"
 github "sudo",        "1.0.0"
 github "xquartz",     "1.2.1"
 
-# Optional/custom modules. There are tons available at
-# https://github.com/boxen.
-# github "elasticsearch", "2.8.0"
-# github "mysql",         "2.0.1"
-# github "postgresql",  "4.0.1"
-# github "redis",       "3.1.0"
-# github "sysctl",      "1.0.1"
+# Android
+github "eclipse",     "2.4.1"
+github "java",        "1.8.4"
+github "android",     "1.5.1"
+
+github "mysql",       "1.2.1"
+
+
+# Mac Software
+github "osx",         "2.8.0"
+github "atom",        "1.3.0"
+github "sublime_text","1.1.0"
+github "chrome",      "1.2.0"
+github "imagemagick", "1.3.0"
+github "keepassx",    "1.0.0"
+github "iterm2",      "1.2.5"
+github "zsh",         "1.0.0"
+github "spectacle",   "1.0.0"
+github "mou",         "1.1.3"

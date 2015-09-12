@@ -8,9 +8,6 @@ Exec {
   user        => $boxen_user,
 
   path => [
-    "${boxen::config::home}/rbenv/shims",
-    "${boxen::config::home}/rbenv/bin",
-    "${boxen::config::home}/rbenv/plugins/ruby-build/bin",
     "${boxen::config::homebrewdir}/bin",
     '/usr/bin',
     '/bin',
@@ -53,10 +50,8 @@ Homebrew::Formula <| |> -> Package <| |>
 
 node default {
   # core modules, needed for most things
-  include dnsmasq
   include git
   include hub
-  include nginx
 
   # fail if FDE is not enabled
   if $::root_encrypted == 'no' {
@@ -64,16 +59,8 @@ node default {
   }
 
   # node versions
-  nodejs::version { '0.6': }
-  nodejs::version { '0.8': }
   nodejs::version { '0.10': }
-
-  # default ruby versions
-  ruby::version { '1.9.3': }
-  ruby::version { '2.0.0': }
-  ruby::version { '2.1.0': }
-  ruby::version { '2.1.1': }
-  ruby::version { '2.1.2': }
+  nodejs::version { '0.12': }
 
   # common, useful packages
   package {
@@ -88,4 +75,52 @@ node default {
     ensure => link,
     target => $boxen::config::repodir
   }
+
+  # Install cordova/ionic/gulp
+  exec { "Cordova/ionic/gulp setup":
+      command  => "sudo npm install -g cordova ionic gulp forever",
+      path    => $path,
+  }
 }
+
+# Android
+include java
+include eclipse::java
+include android::sdk
+include android::tools
+include android::platform_tools
+include android::21
+
+
+# Mac osx settings
+include osx::finder::unhide_library
+include osx::finder::show_hidden_files
+include osx::finder::show_all_filename_extensions
+include osx::safari::enable_developer_mode
+
+
+# atom
+include atom
+atom::package { 'linter': }
+atom::theme { 'monokai': }
+
+
+#sublime_text
+include sublime_text
+
+#install zsh and oh-my-zsh
+include zsh
+exec { "Zsh setup":
+    command  => "curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh",
+    path    => $path,
+}
+
+package { 'alfred': provider => 'brewcask' }
+include chrome
+include iterm2::stable
+include keepassx
+include mysql
+include spectacle
+include imagemagick
+include mou
+include mou::themes
